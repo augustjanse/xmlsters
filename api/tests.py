@@ -24,8 +24,7 @@ class ViewTestCase(TestCase):
                      "mbid": "86949026-de16-34f1-8d8a-1d662ed8c0bb"}
         self.response = self.client.post(
             reverse('create'),
-            self.data,
-            format="json"
+            self.data
         )
 
     def test_can_create_chart(self):
@@ -34,7 +33,7 @@ class ViewTestCase(TestCase):
     def test_can_get_chart(self):
         chart = Chart.objects.get()
         response = self.client.get(
-            reverse('details', kwargs={'pk': chart.pk}), format="json"
+            reverse('details', kwargs={'pk': chart.pk})
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -43,16 +42,14 @@ class ViewTestCase(TestCase):
     def test_can_update_chart(self):
         chart = {'placement': 12}
         response = self.client.put(
-            reverse('details', kwargs={'pk': Chart.objects.get().pk}),
-            chart, format='json'
+            reverse('details', kwargs={'pk': Chart.objects.get().pk}), chart
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_can_delete_chart(self):
         chart = Chart.objects.get()
         response = self.client.put(
-            reverse('details', kwargs={'pk': chart.pk}),
-            format='json', follow=True
+            reverse('details', kwargs={'pk': chart.pk}), follow=True
         )
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
