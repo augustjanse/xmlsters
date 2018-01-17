@@ -1,3 +1,6 @@
+import xml.etree.ElementTree as ET
+
+from defusedxml.ElementTree import parse
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
@@ -28,6 +31,13 @@ class ViewTestCase(TestCase):
         )
 
     def test_can_create_chart(self):
+        chart = parse("api/tests/testchart.xml")
+
+        self.response = self.client.post(
+            reverse('create'),
+            ET.tostring(chart.getroot())
+        )
+
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
 
     def test_can_get_chart(self):
