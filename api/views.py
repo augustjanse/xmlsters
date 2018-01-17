@@ -10,3 +10,8 @@ class CreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save()
+
+
+class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Chart.objects.all()
+    serializer_class = ChartSerializer
