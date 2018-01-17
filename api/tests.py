@@ -27,7 +27,8 @@ class ViewTestCase(TestCase):
                      "mbid": "86949026-de16-34f1-8d8a-1d662ed8c0bb"}
         self.response = self.client.post(
             reverse('create'),
-            self.data
+            self.data,
+            format='xml'
         )
 
     def test_can_create_chart(self):
@@ -35,7 +36,8 @@ class ViewTestCase(TestCase):
 
         self.response = self.client.post(
             reverse('create'),
-            ET.tostring(chart.getroot())
+            ET.tostring(chart.getroot()),
+            format='xml'
         )
 
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)

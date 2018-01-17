@@ -128,4 +128,8 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework_xml.renderers.XMLRenderer',
     ),
+    'TEST_REQUEST_RENDERER_CLASSES': (
+        'rest_framework.renderers.MultiPartRenderer',
+        'rest_framework_xml.renderers.XMLRenderer',
+    ),
 }
