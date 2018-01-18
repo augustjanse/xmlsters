@@ -23,14 +23,6 @@ class ModelTestCase(TestCase):
 class ViewTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.data = {"placement": 1,
-                     "mbid": "86949026-de16-34f1-8d8a-1d662ed8c0bb"}
-        self.response = self.client.post(
-            reverse('create'),
-            self.data,
-            format='xml'
-        )
-
     def test_can_create_chart(self):
         chart = parse("api/tests/testchart.xml")
 
@@ -41,20 +33,3 @@ class ViewTestCase(TestCase):
         )
 
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
-
-    def test_can_get_chart(self):
-        chart = Chart.objects.get()
-        response = self.client.get(
-            reverse('details', kwargs={'pk': chart.pk})
-        )
-
-        # Should test contents of response
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_can_delete_chart(self):
-        chart = Chart.objects.get()
-        response = self.client.delete(
-            reverse('details', kwargs={'pk': chart.pk}), follow=True
-        )
-
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
