@@ -9,4 +9,5 @@ class CreateChart(APIView):
     def post(self, request):
         ser = ChartSerializer(data=request.body)
         ser.is_valid()
+        ser.save()
         return Response(ser.validated_data, status.HTTP_201_CREATED)
