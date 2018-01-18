@@ -7,4 +7,4 @@ class Chart(models.Model):
 
 
 class User(models.Model):
-    chart_id = models.ForeignKey(Chart, on_delete=models.CASCADE)
+    chart_id = models.ForeignKey(Chart, related_name='user_id', on_delete=models.CASCADE)
