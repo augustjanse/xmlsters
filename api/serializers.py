@@ -1,12 +1,21 @@
+from django.utils.six import BytesIO
 from rest_framework import serializers
+from rest_framework.parsers import JSONParser
 
-from .models import Chart
 
+class ChartSerializer(serializers.BaseSerializer):
+    def to_internal_value(self, data):
+        # data = request.body
+        # http://www.django-rest-framework.org/api-guide/serializers/#deserializing-objects
+        stream = BytesIO(data)
+        parsed_data = JSONParser().parse(stream)  # Change this (and other stuff) to parse XML instead
 
-# http://www.django-rest-framework.org/api-guide/relations/
-class ChartSerializer(serializers.Serializer):
-    user_id = serializers.PrimaryKeyRelatedField(read_only=True)
+        return {  # This also needs to be changed if using XML
+            "chartid": parsed_data["chart"]["head"]["chartid"],
+            "userid": parsed_data["chart"]["head"]["userid"],
+            "release": parsed_data["chart"]["body"]["release"]
+        }
 
-    class Meta:
-        model = Chart
-        fields = ('placement', 'mbid', 'user_id')
+    def to_representation(self, instance):
+        # Use with a set and many=True
+        print("test333")
