@@ -5,8 +5,10 @@ from rest_framework.parsers import JSONParser
 
 class ChartSerializer(serializers.BaseSerializer):
     def to_internal_value(self, data):
+        """Deserializes a request body into internal data."""
         # data = request.body
         # http://www.django-rest-framework.org/api-guide/serializers/#deserializing-objects
+
         stream = BytesIO(data)
         parsed_data = JSONParser().parse(stream)  # Change this (and other stuff) to parse XML instead
 
@@ -17,5 +19,5 @@ class ChartSerializer(serializers.BaseSerializer):
         }
 
     def to_representation(self, instance):
-        # Use with a set and many=True
+        """Serializes internal data into something for the response body."""
         print("test333")
