@@ -1,6 +1,6 @@
+from defusedxml.ElementTree import parse
 from django.utils.six import BytesIO
 from rest_framework import serializers
-from rest_framework.parsers import JSONParser
 
 from api.models import Chart, User
 
@@ -25,12 +25,12 @@ class ChartSerializer(serializers.BaseSerializer):
         # http://www.django-rest-framework.org/api-guide/serializers/#deserializing-objects
 
         stream = BytesIO(data)
-        parsed_data = JSONParser().parse(stream)  # Change this (and other stuff) to parse XML instead
+        parsed_data = parse(stream)
 
-        return {  # This also needs to be changed if using XML
-            "chart_id": parsed_data["chart"]["head"]["chartid"],
-            "user_id": parsed_data["chart"]["head"]["userid"],
-            "release": parsed_data["chart"]["body"]["release"]
+        return {
+            "chart_id": parsed_data.find("/chart/head/chartid"),
+            "user_id": parsed_data.find("/chart/head/userid"),
+            "release": parsed_data.find("/chart/head/release")
         }
 
     def to_representation(self, instance):
