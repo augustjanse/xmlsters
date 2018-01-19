@@ -5,6 +5,19 @@ from rest_framework.parsers import JSONParser
 from api.models import Chart, User
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('chart_id')
+
+    chart_id = serializers.PrimaryKeyRelatedField(read_only=True)
+
+
+class ChartInstanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chart
+        fields = ('placement', 'mbid')
+
 class ChartSerializer(serializers.BaseSerializer):
     def to_internal_value(self, data):
         """Deserializes a request body into internal data."""
@@ -15,8 +28,8 @@ class ChartSerializer(serializers.BaseSerializer):
         parsed_data = JSONParser().parse(stream)  # Change this (and other stuff) to parse XML instead
 
         return {  # This also needs to be changed if using XML
-            "chartid": parsed_data["chart"]["head"]["chartid"],
-            "userid": parsed_data["chart"]["head"]["userid"],
+            "chart_id": parsed_data["chart"]["head"]["chartid"],
+            "user_id": parsed_data["chart"]["head"]["userid"],
             "release": parsed_data["chart"]["body"]["release"]
         }
 
@@ -42,4 +55,12 @@ class ChartSerializer(serializers.BaseSerializer):
             }
         }
 
-    # http://www.django-rest-framework.org/api-guide/serializers/#writing-create-methods-for-nested-representations
+    def create(self, validated_data):
+        # http://www.django-rest-framework.org/api-guide/serializers/#writing-create-methods-for-nested-representationsrk.org/api-guide/serializers/#writing-create-methods-for-nested-representations
+        releases = validated_data["release"]
+        chart = None
+        for release in releases:
+            chart = Chart.objects.create(placement=release["-placement"], mbid=["#text"])
+
+        user = User.objects.create(chart_id=chart)
+        return user
