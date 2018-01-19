@@ -1,3 +1,5 @@
+import xml.etree.ElementTree as ET
+
 from defusedxml.ElementTree import parse
 from django.utils.six import BytesIO
 from rest_framework import serializers
@@ -43,17 +45,19 @@ class ChartSerializer(serializers.BaseSerializer):
         user = User.objects.get(chart_id=instance)
 
         user_id = user.pk
-        release = {"release": []}
-        for chart in charts:
-            release["release"].append({"-placement": chart.placement, "#text": chart.mbid})
 
-        return {
-            "chart": {"head": {
-                "chartid": chart_id,
-                "userid": user_id
-            }, "body": release
-            }
-        }
+        root = parse("api/tests/skeleton.xml").getRoot()
+        root.find("/chart/head/chartid").text = chart_id
+        root.find("/chart/head/userid").text = user_id
+
+        body = root.find("/chart/body")
+        for chart in charts:
+            release = ET.SubElement(body, "release")
+            release.text = chart.mbid
+            release.set("placement", chart.placement)
+
+        ET.dump(root)
+        return ET.tostring(root)
 
     def create(self, validated_data):
         # http://www.django-rest-framework.org/api-guide/serializers/#writing-create-methods-for-nested-representationsrk.org/api-guide/serializers/#writing-create-methods-for-nested-representations
