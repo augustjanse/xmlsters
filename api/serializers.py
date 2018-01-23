@@ -33,7 +33,7 @@ class ChartSerializer(serializers.BaseSerializer):
         return {
             "chart_id": parsed_data.find('./head/chartid'),
             "user_id": parsed_data.find("./head/userid"),
-            "release": parsed_data.find("./body/release")
+            "release": parsed_data.findall("./body/release")
         }
 
     def to_representation(self, instance):
@@ -65,7 +65,7 @@ class ChartSerializer(serializers.BaseSerializer):
         releases = validated_data["release"]
         chart = None
         for release in releases:
-            chart = Chart.objects.create(placement=release["-placement"], mbid=["#text"])
+            chart = Chart.objects.create(placement=release.get('placement'), mbid=release.text)
 
         user = User.objects.create(chart_id=chart)
         return user
