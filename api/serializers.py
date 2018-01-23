@@ -32,7 +32,7 @@ class ChartSerializer(serializers.BaseSerializer):
         return {
             "chart_id": parsed_data.find("/chart/head/chartid"),
             "user_id": parsed_data.find("/chart/head/userid"),
-            "release": parsed_data.find("/chart/head/release")
+            "release": parsed_data.find("/chart/body/release")
         }
 
     def to_representation(self, instance):
