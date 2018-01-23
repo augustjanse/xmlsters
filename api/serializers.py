@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-from defusedxml.ElementTree import parse
+import defusedxml.ElementTree
 from django.utils.six import BytesIO
 from rest_framework import serializers
 
@@ -27,12 +27,13 @@ class ChartSerializer(serializers.BaseSerializer):
         # http://www.django-rest-framework.org/api-guide/serializers/#deserializing-objects
 
         stream = BytesIO(data)
-        parsed_data = parse(stream)
+        str = stream.read()
+        parsed_data = defusedxml.ElementTree.fromstring(str)
 
         return {
-            "chart_id": parsed_data.find("/chart/head/chartid"),
-            "user_id": parsed_data.find("/chart/head/userid"),
-            "release": parsed_data.find("/chart/body/release")
+            "chart_id": parsed_data.find('./head/chartid'),
+            "user_id": parsed_data.find("./head/userid"),
+            "release": parsed_data.find("./body/release")
         }
 
     def to_representation(self, instance):
@@ -46,7 +47,7 @@ class ChartSerializer(serializers.BaseSerializer):
 
         user_id = user.pk
 
-        root = parse("api/tests/skeleton.xml").getRoot()
+        root = ET.parse("api/tests/skeleton.xml").getRoot()
         root.find("/chart/head/chartid").text = chart_id
         root.find("/chart/head/userid").text = user_id
 
