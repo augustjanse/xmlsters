@@ -30,7 +30,7 @@ class ViewTestCase(TestCase):
         self.response = self.client.post(
             reverse('create'),
             ET.tostring(chart.getroot()),
-            format='xml'
+            content_type='application/xml'
         )
 
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
