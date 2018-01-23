@@ -1,18 +1,10 @@
 <chart>
     <head>
-        <chartid>
-            1
-        </chartid>
-        <userid>
-            1
-        </userid>
+        <chartid>1</chartid>
+        <userid>1</userid>
     </head>
     <body>
-        <release placement="1">
-            19a8b6e5-f753-36c6-a3c6-189390d09935
-        </release>
-        <release placement="2">
-            86949026-de16-34f1-8d8a-1d662ed8c0bb
-        </release>
+        <release placement="1">19a8b6e5-f753-36c6-a3c6-189390d09935</release>
+        <release placement="2">86949026-de16-34f1-8d8a-1d662ed8c0bb</release>
     </body>
 </chart>
