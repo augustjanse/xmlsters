@@ -9,11 +9,21 @@ $(function () {
         entity = null;
         setEntity(input, mbid);
 
-        url = "http://coverartarchive.org/" + entity + "/front";
-        jQuery.get(url, function (data) {
-            alert(data)
+        url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
+        $.ajax({
+            method: 'GET',
+            url: url,
+            success: addToTray,
+            error: function (jqXHR, textStatus) {
+                console.log(textStatus);
+            }
         });
 
         e.preventDefault()
     })
 });
+
+function addToTray(data, status) {
+    console.log(data);
+    console.log(status)
+}
