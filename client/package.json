@@ -1,0 +1,27 @@
+{
+  "name": "xmlsters",
+  "version": "1.0.0",
+  "description": "A Topsters clone using XSLT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augustjanse/xmlsters.git"
+  },
+  "keywords": [
+    "xml"
+  ],
+  "author": "August Janse",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/augustjanse/xmlsters/issues"
+  },
+  "homepage": "https://github.com/augustjanse/xmlsters#readme",
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9"
+  }
+}
