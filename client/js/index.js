@@ -10,20 +10,17 @@ $(function () {
         setEntity(input, mbid);
 
         url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
-        $.ajax({
-            method: 'GET',
-            url: url,
-            success: addToTray,
-            error: function (jqXHR, textStatus) {
-                console.log(textStatus);
-            }
-        });
+
+        // API doesn't support CORS: https://stackoverflow.com/a/7910570/1729441
+        $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', addToTray);
 
         e.preventDefault()
     })
 });
 
-function addToTray(data, status) {
-    console.log(data);
-    console.log(status)
+function addToTray(data) {
+    // data.contents contains "See: [URL]"
+    url = data.contents.match("See: (.*)")[1];
+
+    $("body").append('<img src="' + url + '">')
 }
