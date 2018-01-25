@@ -22,5 +22,5 @@ function addToTray(data) {
     // data.contents contains "See: [URL]"
     url = data.contents.match("See: (.*)")[1];
 
-    $("#tray").find(".col:not([data-full]):first").append('<img src="' + url + '">')
+    $("#tray").find('img[src="image/FFFFFF-1.png"]:first').attr("src", url)
 }
