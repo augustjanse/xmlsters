@@ -5,3 +5,7 @@ body {
 div .col {
     background-color: white;
 }
+
+img {
+    max-width: 100%;
+}
