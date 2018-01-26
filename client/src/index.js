@@ -7,18 +7,17 @@ import '../src/index.css';
 $(function () {
     // https://stackoverflow.com/a/14472606/1729441
     $("form").on('submit', function (e) {
+        e.preventDefault();
+
         // Reuses request from old userscript
         var input = $("#mbid_box").val();
         var mbid = input.match("[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+")[0];
-        entity = null;
-        setEntity(input, mbid);
+        entity = "release-group";
 
         url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
 
         // API doesn't support CORS: https://stackoverflow.com/a/7910570/1729441
         $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', addToTray);
-
-        e.preventDefault()
     })
 });
 
