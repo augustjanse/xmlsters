@@ -25,7 +25,5 @@
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9"
   },
-  "devDependencies": {
-    "browserify-css": "^0.14.0"
-  }
+  "devDependencies": {}
 }
