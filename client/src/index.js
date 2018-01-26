@@ -17,7 +17,12 @@ $(function () {
         const url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
 
         // API doesn't support CORS: https://stackoverflow.com/a/7910570/1729441
-        $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', addToTray);
+        $.ajax({
+            dataType: "json",
+            url: 'http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?',
+            success: addToTray
+        });
+
     })
 });
 
