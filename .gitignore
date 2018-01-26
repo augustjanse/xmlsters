@@ -1,3 +1,10 @@
+# Personal
+.idea
+api.iml
+db.sqlite3
+xmlsters.iml
+bundle.js
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
