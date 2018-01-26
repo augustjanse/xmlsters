@@ -10,11 +10,11 @@ $(function () {
         e.preventDefault();
 
         // Reuses request from old userscript
-        var input = $("#mbid_box").val();
-        var mbid = input.match("[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+")[0];
-        entity = "release-group";
+        const input = $("#mbid_box").val();
+        const mbid = input.match("[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+")[0];
+        const entity = "release-group";
 
-        url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
+        const url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
 
         // API doesn't support CORS: https://stackoverflow.com/a/7910570/1729441
         $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?', addToTray);
@@ -23,7 +23,7 @@ $(function () {
 
 function addToTray(data) {
     // data.contents contains "See: [URL]"
-    url = data.contents.match("See: (.*)")[1];
+    const url = data.contents.match("See: (.*)")[1];
 
-    $("#tray").find('img[src="image/FFFFFF-1.png"]:first').attr("src", url)
+    $("#tray").find('img[src="FFFFFF-1.png"]:first').attr("src", url)
 }
