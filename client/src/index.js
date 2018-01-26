@@ -27,3 +27,24 @@ function addToTray(data) {
 
     $("#tray").find('img[src="FFFFFF-1.png"]:first').attr("src", url)
 }
+
+// Globally for lack of better way of exposing them
+function drag(event) {
+    $(event.srcElement).data("mbid", "test");
+    event.dataTransfer.setData("mbid", $(event.srcElement).data("mbid"))
+}
+
+window.drag = drag;
+
+function drop(event) {
+    event.preventDefault();
+    $(event.target).data("mbid", event.dataTransfer.getData("mbid"))
+}
+
+window.drop = drop;
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+window.allowDrop = allowDrop;
