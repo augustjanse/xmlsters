@@ -4,7 +4,7 @@
   "description": "A Topsters clone using XSLT",
   "main": "index.js",
   "scripts": {
-    "build": "browserify -g browserify-css js/index.js > js/bundle.js",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
