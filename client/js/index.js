@@ -1,6 +1,17 @@
 // Simple Javascript file. Due to the specification of the assignment,
 // no frontend frameworks will be used.
-var $ = require("jquery");
+
+// Bootstrap requirements as in https://stackoverflow.com/a/47362344/1729441
+window.jQuery = $ = require('jquery');
+window.Popper = require('popper.js');
+require('bootstrap');
+require('bootstrap/dist/css/bootstrap.css');
+
+// Other libraries
+// ...
+
+// Project files
+require('../css/index.css');
 
 $(function () {
     // https://stackoverflow.com/a/14472606/1729441
