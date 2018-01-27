@@ -60,7 +60,6 @@ function setSrc(data) {
 
 // Globally for lack of better way of exposing them
 function drag(event) {
-    $(event.srcElement).data("mbid", "test");
     event.dataTransfer.setData("mbid", $(event.srcElement).data("mbid"))
 }
 
@@ -68,7 +67,8 @@ window.drag = drag;
 
 function drop(event) {
     event.preventDefault();
-    $(event.target).data("mbid", event.dataTransfer.getData("mbid"))
+    const mbid = event.dataTransfer.getData("mbid");
+    fillImg($(event.target), mbid);
 }
 
 window.drop = drop;
