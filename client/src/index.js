@@ -12,25 +12,50 @@ $(function () {
         // Reuses request from old userscript
         const input = $("#mbid_box").val();
         const mbid = input.match("[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+")[0];
-        const entity = "release-group";
 
-        const url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
-
-        // API doesn't support CORS: https://stackoverflow.com/a/7910570/1729441
-        $.ajax({
-            dataType: "json",
-            url: 'http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?',
-            success: addToTray
-        });
-
+        const $img = $("#tray").find('img[src="FFFFFF-1.png"]:first'); // First empty element in tray
+        fillImg($img, mbid)
     })
 });
 
-function addToTray(data) {
+/**
+ * Fill data-mbid and src fields of an $img
+ * @param $img
+ * @param mbid
+ */
+function fillImg($img, mbid) {
+    $img.data("mbid", mbid);
+    refreshArt($img)
+}
+
+/**
+ * Takes $img with data("mbid") set, and sets the appropriate img src
+ * @param $img
+ */
+function refreshArt($img) {
+    const entity = "release-group";
+    const mbid = $img.data("mbid");
+    const url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
+
+    // API doesn't support CORS: https://stackoverflow.com/a/7910570/1729441
+    $.ajax({
+        context: $img,
+        dataType: "json",
+        url: 'http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?',
+        success: setSrc
+    });
+}
+
+/**
+ * Takes returned data from the MB API, does some slight parsing, and sets the src of this to the url.
+ * @param data
+ */
+function setSrc(data) {
     // data.contents contains "See: [URL]"
     const url = data.contents.match("See: (.*)")[1];
 
-    $("#tray").find('img[src="FFFFFF-1.png"]:first').attr("src", url)
+    // this should be $img from context
+    this.attr("src", url)
 }
 
 // Globally for lack of better way of exposing them
