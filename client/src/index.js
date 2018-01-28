@@ -1,7 +1,3 @@
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../src/index.css';
-
 // Simple Javascript file. Due to the specification of the assignment,
 // no frontend frameworks will be used.
 $(function () {
