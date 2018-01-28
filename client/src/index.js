@@ -24,7 +24,11 @@ $(function () {
  * @param mbid
  */
 function fillImg($img, mbid) {
-    $img.data("mbid", mbid);
+    if (mbid === undefined) {
+        $img.removeData("mbid")
+    } else {
+        $img.data("mbid", mbid);
+    }
     refreshArt($img)
 }
 
@@ -37,13 +41,18 @@ function refreshArt($img) {
     const mbid = $img.data("mbid");
     const url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
 
-    // API doesn't support CORS: https://stackoverflow.com/a/7910570/1729441
-    $.ajax({
-        context: $img,
-        dataType: "json",
-        url: 'http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?',
-        success: setSrc
-    });
+    if (mbid === undefined) {
+        // Skip the request
+        $img.attr("src", "FFFFFF-1.png")
+    } else {
+        // API doesn't support CORS: https://stackoverflow.com/a/7910570/1729441
+        $.ajax({
+            context: $img,
+            dataType: "json",
+            url: 'http://www.whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=?',
+            success: setSrc
+        });
+    }
 }
 
 /**
@@ -60,7 +69,8 @@ function setSrc(data) {
 
 // Globally for lack of better way of exposing them
 function drag(event) {
-    event.dataTransfer.setData("mbid", $(event.srcElement).data("mbid"))
+    event.dataTransfer.setData("mbid", $(event.srcElement).data("mbid"));
+    fillImg($(event.target), undefined) // Empty source
 }
 
 window.drag = drag;
