@@ -6,15 +6,26 @@
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="report">
+    <xsl:template match="chart">
         <html>
             <head>
-                <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+                <title>xmlsters</title>
+
                 <link href="http://www.csc.kth.sep/~bjornh/2D1517/kthstandard.mac.css" type="text/css"
                       rel="stylesheet"/>
-                <title>
-                    <xsl:value-of select="head/title"/>
-                </title>
+
+                <!-- Bootstrap -->
+                <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+                <script src="../node_modules/jquery/dist/jquery.js"/>
+                <script src="../node_modules/popper.js/dist/umd/popper.js"/>
+                <script src="../node_modules/bootstrap/dist/js/bootstrap.js"/>
+
+                <!-- Custom files -->
+                <link rel="stylesheet" type="text/css" href="../src/index.css"/>
+                <script src="../src/index.js"/>
             </head>
             <body>
                 <h1>
