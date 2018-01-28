@@ -28,6 +28,17 @@
                 <script src="../src/index.js"/>
             </head>
             <body>
+                <div class="container">
+                    <!-- https://stackoverflow.com/a/21779432/1729441 -->
+                    <!-- Hack for for loops in XPath 1.0 -->
+                    <xsl:for-each select="document('')/descendant::node()[position() &lt;= 40]">
+                        <!-- position() will mean something else if called in the expression,
+                        so save it now -->
+                        <xsl:variable name="pos" select="position()"/>
+                        <xsl:apply-templates select="//body/release[@placement=$pos]">
+                        </xsl:apply-templates>
+                    </xsl:for-each>
+                </div>
                 <h1>
                     <xsl:value-of select="head/title"/>
                 </h1>
