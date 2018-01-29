@@ -40,13 +40,15 @@
                             <xsl:text disable-output-escaping="yes">&lt;div class="row no-gutters"&gt;</xsl:text>
                         </xsl:if>
 
+                        <div class="col m-1">
+                            <img data-mbid="{//body/release[@placement=$pos]}" draggable="true"
+                                 ondragstart="drag(event)" ondrop="drop(event)"
+                                 ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
+                        </div>
 
                         <xsl:if test="$pos = 5 or $pos = 10 or $pos = 16 or $pos = 22 or $pos = 32 or $pos = 42">
                             <xsl:text disable-output-escaping="yes">&lt;/div&gt;</xsl:text>
                         </xsl:if>
-
-                        <xsl:apply-templates select="//body/release[@placement=$pos]">
-                        </xsl:apply-templates>
                     </xsl:for-each>
                 </div>
                 <h1>
