@@ -27,12 +27,30 @@ function generateChart($userid)
     $stmt = $link->prepare('SELECT * FROM user WHERE userid = ?');
     $stmt->bind_param('s', $userid);
     $stmt->execute();
-
     $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        echo $row['userid'];
-        echo $row['chartid'];
+
+    // Should only be one
+    $row = $result->fetch_assoc();
+
+    $userid = $row['userid'];
+    $chartid = $row['chartid'];
+
+    $xml = simplexml_load_file('skeleton.xml');
+    $xml->head[0]->userid = $userid;
+    $xml->head[0]->chartid = $chartid;
+
+    $stmt = $link->prepare('SELECT * FROM chart WHERE chartid = ?');
+    $stmt->bind_param('s', $chartid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    for ($i = 0; $row = $result->fetch_assoc(); ++$i) {
+        $xml->body[0]->addChild("release", $row['mbid']);
+        $xml->body[0]->release[$i]['placement'] = $row['placement'];
+        echo $xml->asXML();
     }
+
+    return $xml->asXML();
 }
 
 date_default_timezone_set("Europe/Stockholm")
