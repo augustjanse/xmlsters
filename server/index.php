@@ -6,7 +6,8 @@ if (mysqli_connect_errno()) {
 }
 
 if ($_GET["userid"]) {
-    echo generateChart($_GET["userid"]);
+    $xml = generateChart($_GET["userid"]);
+    echo transformChart($xml);
 }
 
 if ($_POST["chart"]) {
@@ -47,10 +48,20 @@ function generateChart($userid)
     for ($i = 0; $row = $result->fetch_assoc(); ++$i) {
         $xml->body[0]->addChild("release", $row['mbid']);
         $xml->body[0]->release[$i]['placement'] = $row['placement'];
-        echo $xml->asXML();
     }
 
-    return $xml->asXML();
+    return $xml;
+}
+
+function transformChart($xml)
+{
+    $xsl = new XSLTProcessor();
+    $xsldoc = new DOMDocument();
+
+    $xsldoc->load('index.xsl');
+    $xsl->importStylesheet($xsldoc);
+
+    return $xsl->transformToXml($xml);
 }
 
 date_default_timezone_set("Europe/Stockholm")
