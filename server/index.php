@@ -2,12 +2,22 @@
 header("Content-type: text/xml; charset=utf-8");
 
 // Connect using host, username, password and databasename
-$link = mysqli_connect('localhost', 'rsslab', 'rsslab', 'rsslab');
+// As root, with password in version control...
+$link = mysqli_connect('localhost', 'root', 'MyNewPass', 'xmlsters');
 
 // Check connection
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
+}
+
+if ($_GET["userid"]) {
+    echo generateChart($_GET["userid"]);
+}
+
+if ($_POST["chart"]) {
+    storeChart($_POST["chart"]);
+    echo $_POST["chart"];
 }
 
 // The SQL query
