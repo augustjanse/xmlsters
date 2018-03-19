@@ -15,14 +15,14 @@
                 <title>xmlsters</title>
 
                 <!-- Bootstrap -->
-                <link rel="stylesheet" href="client/node_modules/bootstrap/dist/css/bootstrap.css"/>
-                <script src="client/node_modules/jquery/dist/jquery.js"/>
-                <script src="client/node_modules/popper.js/dist/umd/popper.js"/>
-                <script src="client/node_modules/bootstrap/dist/js/bootstrap.js"/>
+                <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+                <script src="node_modules/jquery/dist/jquery.js"/>
+                <script src="node_modules/popper.js/dist/umd/popper.js"/>
+                <script src="node_modules/bootstrap/dist/js/bootstrap.js"/>
 
                 <!-- Custom files -->
-                <link rel="stylesheet" type="text/css" href="../client/src/index.css"/>
-                <script src="../client/src/index.js"/>
+                <link rel="stylesheet" type="text/css" href="index.css"/>
+                <script src="index.js"/>
             </head>
             <body>
                 <div class="container">

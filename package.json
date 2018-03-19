@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "A Topsters clone using XSLT",
   "main": "index.js",
-  "scripts": {
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/augustjanse/xmlsters.git"
@@ -24,10 +20,5 @@
     "bootstrap": "^4.0.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9"
-  },
-  "devDependencies": {
-    "css-loader": "^0.28.9",
-    "style-loader": "^0.19.1",
-    "webpack": "^3.10.0"
   }
 }
