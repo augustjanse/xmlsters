@@ -28,6 +28,7 @@
                 <div class="container">
                     <!-- https://stackoverflow.com/a/21779432/1729441 -->
                     <!-- Hack for for loops in XPath 1.0 -->
+                    <xsl:variable name="dot" select="."/> <!-- Save context from outside loop -->
                     <xsl:for-each select="document('')/descendant::node()[position() &lt;= 42]">
                         <!-- position() will mean something else if called in the expression,
                         so save it now -->
@@ -38,7 +39,7 @@
                         </xsl:if>
 
                         <div class="col m-1">
-                            <img data-mbid="{//body/release[@placement=$pos]}" draggable="true"
+                            <img data-mbid="{$dot/body/release[@placement=$pos]}" draggable="true"
                                  ondragstart="drag(event)" ondrop="drop(event)"
                                  ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
                         </div>
