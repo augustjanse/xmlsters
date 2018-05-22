@@ -9,3 +9,8 @@ div .col {
 img {
     width: 100%;
 }
+
+form {
+    margin: 0 auto;
+    width: 30%;
+}

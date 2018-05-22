@@ -48,6 +48,37 @@
                             <xsl:text disable-output-escaping="yes">&lt;/div&gt;</xsl:text>
                         </xsl:if>
                     </xsl:for-each>
+
+                    <!-- Static form and tray -->
+                    <form>
+                        <input type="text" name="mbid" id="mbid_box"/>
+                        <input type="submit" name="Submit" value="Submit"/>
+                    </form>
+
+                    <div id="tray" class="container">
+                        <div class="row no-gutters">
+                            <div class="col m-1">
+                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                     ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
+                            </div>
+                            <div class="col m-1">
+                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                     ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
+                            </div>
+                            <div class="col m-1">
+                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                     ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
+                            </div>
+                            <div class="col m-1">
+                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                     ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
+                            </div>
+                            <div class="col m-1">
+                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                     ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </body>
         </html>
