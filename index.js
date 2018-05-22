@@ -41,7 +41,7 @@ function refreshArt($img) {
     const mbid = $img.data("mbid");
     const url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
 
-    if (mbid === undefined) {
+    if (mbid === "") {
         // Skip the request
         $img.attr("src", "FFFFFF-1.png")
     } else {
