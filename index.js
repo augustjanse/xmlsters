@@ -1,6 +1,10 @@
 // Simple Javascript file. Due to the specification of the assignment,
 // no frontend frameworks will be used.
 $(function () {
+    $("img").each(function () {
+        refreshArt($(this))
+    });
+
     // https://stackoverflow.com/a/14472606/1729441
     $("form").on('submit', function (e) {
         e.preventDefault();
