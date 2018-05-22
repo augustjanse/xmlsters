@@ -37,7 +37,7 @@ function fillImg($img, mbid) {
  * @param $img
  */
 function refreshArt($img) {
-    const entity = "release-group";
+    const entity = "release";
     const mbid = $img.data("mbid");
     const url = "http://coverartarchive.org/" + entity + "/" + mbid + "/front";
 
