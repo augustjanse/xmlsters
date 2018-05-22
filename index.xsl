@@ -29,9 +29,8 @@
                     <!-- https://stackoverflow.com/a/21779432/1729441 -->
                     <!-- Hack for for loops in XPath 1.0 -->
                     <xsl:variable name="dot" select="."/> <!-- Save context from outside loop -->
+                    <!-- Relies on the fact that XSL has at least 42 elements:  makes for some weird bugs -->
                     <xsl:for-each select="document('')/descendant::node()[position() &lt;= 42]">
-                        <!-- position() will mean something else if called in the expression,
-                        so save it now -->
                         <xsl:variable name="pos" select="position()"/>
 
                         <xsl:if test="$pos = 1 or $pos = 6 or $pos = 11 or $pos = 17 or $pos = 23 or $pos = 33">
