@@ -57,23 +57,23 @@
                     <div id="tray" class="container">
                         <div class="row no-gutters">
                             <div class="col m-1">
-                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                <img data-mbid="" draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
                                      ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
                             </div>
                             <div class="col m-1">
-                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                <img data-mbid="" draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
                                      ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
                             </div>
                             <div class="col m-1">
-                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                <img data-mbid="" draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
                                      ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
                             </div>
                             <div class="col m-1">
-                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                <img data-mbid="" draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
                                      ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
                             </div>
                             <div class="col m-1">
-                                <img draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
+                                <img data-mbid="" draggable="true" ondragstart="drag(event)" ondrop="drop(event)"
                                      ondragover="allowDrop(event)" src="FFFFFF-1.png"/>
                             </div>
                         </div>
