@@ -87,4 +87,21 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
+function serializeChart() {
+    const xmlString = "<chart><head><chartid/><userid/></head><body/></chart>";
+    const $xmlDoc = $($.parseXML(xmlString));
+    console.log($xmlDoc.find("chartid").text());
+
+    $("img").not("#tray img").each(function (index, element) {
+        // Make release node
+        $release = $("<release/>");
+        $release.attr("placement", index + 1);
+        $release.text($(element).data("mbid"));
+
+        $xmlDoc.find("body").append($release);
+    });
+
+    return new XMLSerializer().serializeToString($xmlDoc[0]);
+}
+
 window.allowDrop = allowDrop;
