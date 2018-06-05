@@ -9,11 +9,12 @@ if (mysqli_connect_errno()) {
 if ($_GET["userid"]) {
     $xml = generateChart($_GET["userid"]);
     echo transformChart($xml);
-}
-
-if ($_POST["chart"]) {
+} else if ($_POST["chart"]) {
     storeChart($_POST["chart"]);
     echo $_POST["chart"];
+} else {
+    var_dump($_GET);
+    var_dump($_POST);
 }
 
 function connect()
