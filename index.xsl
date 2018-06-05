@@ -7,25 +7,6 @@
     </xsl:template>
 
     <xsl:template match="chart">
-        <html>
-            <head>
-                <meta charset="UTF-8"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
-                <title>xmlsters</title>
-
-                <!-- Bootstrap -->
-                <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
-                <script src="node_modules/jquery/dist/jquery.js"/>
-                <script src="node_modules/popper.js/dist/umd/popper.js"/>
-                <script src="node_modules/bootstrap/dist/js/bootstrap.js"/>
-
-                <!-- Custom files -->
-                <link rel="stylesheet" type="text/css" href="index.css"/>
-                <script src="index.js"/>
-            </head>
-            <body>
-                <div class="container">
                     <!-- https://stackoverflow.com/a/21779432/1729441 -->
                     <!-- Hack for for loops in XPath 1.0 -->
                     <xsl:variable name="dot" select="."/> <!-- Save context from outside loop -->
@@ -78,9 +59,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </body>
-        </html>
+    </xsl:template>
+
+    <!-- Dummy elements for loop -->
+    <xsl:template match="dummy">
+        <dummy/>
+        <dummy/>
+        <dummy/>
+        <dummy/>
+        <dummy/>
+        <dummy/>
     </xsl:template>
 </xsl:stylesheet>
 

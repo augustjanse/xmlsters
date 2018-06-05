@@ -1,4 +1,5 @@
 <?php
+include 'header.html';
 // Check connection
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
@@ -64,5 +65,7 @@ function transformChart($xml)
     return $xsl->transformToXml($xml);
 }
 
-date_default_timezone_set("Europe/Stockholm")
+date_default_timezone_set("Europe/Stockholm");
+
+include 'footer.html';
 ?>
