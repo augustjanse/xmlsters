@@ -6,7 +6,7 @@ $(function () {
     });
 
     // https://stackoverflow.com/a/14472606/1729441
-    $("form").on('submit', function (e) {
+    $("form#add").on('submit', function (e) {
         e.preventDefault();
 
         // Reuses request from old userscript
@@ -15,6 +15,22 @@ $(function () {
 
         const $img = $("#tray").find('img[src="FFFFFF-1.png"]:first'); // First empty element in tray
         fillImg($img, mbid)
+    });
+
+    $("form#save").on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: window.location.origin, // Might send GET parameters as well if no URL supplied
+            type: "POST",
+            data: {chart: serializeChart()},
+            success: function (data, status) {
+                console.log(data);
+            },
+            error: function () {
+                console.log("error");
+            }
+        });
     })
 });
 
