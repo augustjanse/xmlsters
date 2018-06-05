@@ -1,0 +1,8 @@
+<!ELEMENT chart (head, body)>
+        <!ELEMENT head (chartid, userid)>
+        <!ELEMENT chartid (#PCDATA)>
+        <!ELEMENT userid (#PCDATA)>
+        <!ELEMENT body (release*)>
+        <!ELEMENT release (#PCDATA)>
+        <!ATTLIST release
+                placement CDATA #IMPLIED>
