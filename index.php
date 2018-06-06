@@ -98,13 +98,16 @@ function storeChart($chart)
     }
 
     if ($ownedByUser) {
-        $stmt = $link->prepare('INSERT INTO chart VALUES (?, ?, ?);');
+        $stmt = $link->prepare('REPLACE INTO chart VALUES (?, ?, ?);');
         for ($i = 0; $i < $xml->body[0]->release->count(); ++$i) {
             $mbid = (string)$xml->body[0]->release[$i];
-            $placement = (string)$xml->body[0]->release[$i]['placement'];
 
-            $stmt->bind_param('sss', $chartid, $placement, $mbid);
-            $stmt->execute();
+            if ($mbid != '') {
+                $placement = (string)$xml->body[0]->release[$i]['placement'];
+
+                $stmt->bind_param('sss', $chartid, $placement, $mbid);
+                $stmt->execute();
+            }
         }
     } else {
         echo "chartid does not correspond to userid";
