@@ -106,7 +106,13 @@ function allowDrop(event) {
 function serializeChart() {
     const xmlString = "<chart><head><chartid/><userid/></head><body/></chart>";
     const $xmlDoc = $($.parseXML(xmlString));
-    console.log($xmlDoc.find("chartid").text());
+
+    const url = new URL(window.location.href);
+    const userid = url.searchParams.get("userid");
+    const chartid = url.searchParams.get("chartid");
+
+    $xmlDoc.find("userid").text(userid);
+    $xmlDoc.find("chartid").text(chartid);
 
     $("img").not("#tray img").each(function (index, element) {
         // Make release node
