@@ -10,8 +10,7 @@ if ($_GET["userid"]) {
     $xml = generateChart($_GET["userid"]);
     echo transformChart($xml);
 } else if ($_POST["chart"]) {
-    storeChart($_POST["chart"]);
-    echo $_POST["chart"];
+    echo storeChart($_POST["chart"]);
 } else {
     var_dump($_GET);
     var_dump($_POST);
@@ -64,6 +63,57 @@ function transformChart($xml)
     $xsl->importStylesheet($xsldoc);
 
     return $xsl->transformToXml($xml);
+}
+
+function storeChart($chart)
+{
+    echo "im in";
+    $xml = simplexml_load_string($chart);
+    $userid = $xml->head[0]->userid;
+    $chartid = $xml->head[0]->chartid;
+
+    // Check if chartid exists already
+    $link = connect();
+    $stmt = $link->prepare('SELECT * FROM user WHERE chartid = ?');
+    $stmt->bind_param('s', $chartid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if chart owned by user
+    $ownedByUser = false;
+    if (mysqli_num_rows($result) == 0) {
+        $ownedByUser = true; // New chart
+
+        // Enter in user table
+        $stmt = $link->prepare('INSERT INTO user VALUES (?, ?);');
+        $stmt->bind_param('ss', $userid, $chartid);
+        $stmt->execute();
+
+        echo "entered in user";
+    } else {
+        while (!$ownedByUser && $row = $result->fetch_assoc()) { // Second part evalutates to NULL if done
+            if ($row['userid'] == $userid) {
+                $ownedByUser = true; // At least one row contains this combination, should hold for all
+            }
+        }
+    }
+
+    if ($ownedByUser) {
+        $stmt = $link->prepare('INSERT INTO chart VALUES (?, ?, ?);');
+        for ($i = 0; $i < count($xml->body[0]->release); ++$i) {
+            $mbid = (string)$xml->body[0]->release[$i]->release; // This might not work yet, tomorrow me :))))
+            $placement = (string)$xml->body[0]->release[$i]->placement;
+
+            $stmt->bind_param('ss', $chartid, $placement, $mbid);
+            $stmt->execute();
+        }
+
+        echo "entered stuff";
+    } else {
+        echo "chartid does not correspond to userid";
+    }
+
+    return $xml;
 }
 
 date_default_timezone_set("Europe/Stockholm");
