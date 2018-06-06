@@ -67,7 +67,6 @@ function transformChart($xml)
 
 function storeChart($chart)
 {
-    echo "im in";
     $xml = simplexml_load_string($chart);
     $userid = $xml->head[0]->userid;
     $chartid = $xml->head[0]->chartid;
@@ -100,15 +99,13 @@ function storeChart($chart)
 
     if ($ownedByUser) {
         $stmt = $link->prepare('INSERT INTO chart VALUES (?, ?, ?);');
-        for ($i = 0; $i < count($xml->body[0]->release); ++$i) {
-            $mbid = (string)$xml->body[0]->release[$i]->release; // This might not work yet, tomorrow me :))))
-            $placement = (string)$xml->body[0]->release[$i]->placement;
+        for ($i = 0; $i < $xml->body[0]->release->count(); ++$i) {
+            $mbid = (string)$xml->body[0]->release[$i];
+            $placement = (string)$xml->body[0]->release[$i]['placement'];
 
-            $stmt->bind_param('ss', $chartid, $placement, $mbid);
+            $stmt->bind_param('sss', $chartid, $placement, $mbid);
             $stmt->execute();
         }
-
-        echo "entered stuff";
     } else {
         echo "chartid does not correspond to userid";
     }
