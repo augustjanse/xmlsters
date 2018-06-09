@@ -31,7 +31,14 @@ $(function () {
                 console.log("error");
             }
         });
-    })
+    });
+
+    const url = new URL(window.location.href);
+    const userid = url.searchParams.get("userid");
+    const chartid = url.searchParams.get("chartid");
+
+    $("#userid").val(userid);
+    $("#chartid").val(chartid);
 });
 
 /**
