@@ -12,21 +12,11 @@ if ($_GET["userid"]) {
 } else if ($_POST["chart"]) {
     echo storeChart($_POST["chart"]);
 } else {
-    try {
-        $userid = random_int(0, 1000000000);
-    } catch (Exception $e) {
-        printf("Random int generation failed");
-        exit();
-    }
+    $comb = generateIDCombination();
+    $userid = $comb[0];
+    $chartid = $comb[1];
 
-    $uniqueFound = false;
-    while (!$uniqueFound) {
-        if (uniqueUserid($userid)) {
-            $uniqueFound = true;
-        }
-    }
-
-    header("LOCATION: /?userid=$userid");
+    header("LOCATION: /?userid=$userid&chartid=$chartid");
     $xml = generateChart($userid);
     echo transformChart($xml);
 }
@@ -131,11 +121,44 @@ function storeChart($chart)
     return $xml;
 }
 
-function uniqueUserid($userid)
+function generateIDCombination()
+{
+    $uniqueFound = false;
+    while (!$uniqueFound) {
+        try {
+            $userid = random_int(0, 1000000000);
+        } catch (Exception $e) {
+            printf("Random int generation failed");
+            exit();
+        }
+
+        if (uniqueId('userid', $userid)) {
+            $uniqueFound = true;
+        }
+    }
+
+    $uniqueFound = false;
+    while (!$uniqueFound) {
+        try {
+            $chartid = random_int(0, 1000000000);
+        } catch (Exception $e) {
+            printf("Random int generation failed");
+            exit();
+        }
+
+        if (uniqueId('chartid', $chartid)) {
+            $uniqueFound = true;
+        }
+    }
+
+    return [$userid, $chartid];
+}
+
+function uniqueId($type, $id)
 {
     $link = connect();
-    $stmt = $link->prepare('SELECT * FROM user WHERE userid = ?');
-    $stmt->bind_param('s', $userid);
+    $stmt = $link->prepare("SELECT * FROM user WHERE $type = ?");
+    $stmt->bind_param('s', $id);
     $stmt->execute();
     $result = $stmt->get_result();
 
