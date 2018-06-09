@@ -12,8 +12,23 @@ if ($_GET["userid"]) {
 } else if ($_POST["chart"]) {
     echo storeChart($_POST["chart"]);
 } else {
-    var_dump($_GET);
-    var_dump($_POST);
+    try {
+        $userid = random_int(0, 1000000000);
+    } catch (Exception $e) {
+        printf("Random int generation failed");
+        exit();
+    }
+
+    $uniqueFound = false;
+    while (!$uniqueFound) {
+        if (uniqueUserid($userid)) {
+            $uniqueFound = true;
+        }
+    }
+
+    header("LOCATION: /?userid=$userid");
+    $xml = generateChart($userid);
+    echo transformChart($xml);
 }
 
 function connect()
@@ -114,6 +129,21 @@ function storeChart($chart)
     }
 
     return $xml;
+}
+
+function uniqueUserid($userid)
+{
+    $link = connect();
+    $stmt = $link->prepare('SELECT * FROM user WHERE userid = ?');
+    $stmt->bind_param('s', $userid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if (mysqli_num_rows($result) == 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 date_default_timezone_set("Europe/Stockholm");
